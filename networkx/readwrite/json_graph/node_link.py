@@ -49,7 +49,7 @@ def node_link_data(G):
     data['directed'] = G.is_directed()
     data['multigraph'] = multigraph
     data['graph'] = list(G.graph.items())
-    data['nodes'] = [ dict(id=n, **G.node[n]) for n in G ]
+    data['nodes'] = [ dict(id=n, **G.node[n]) if not 'id' in G.node[n] else dict(**G.node[n]) for n in G ]
     if multigraph:
         data['links'] = [ dict(source=mapping[u], target=mapping[v], key=k, **d)
                           for u,v,k,d in G.edges(keys=True, data=True) ]
